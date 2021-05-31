@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121350959646",
+    "project_id": "studentcircle-5a474",
+    "storage_bucket": "studentcircle-5a474.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121350959646:android:10284b3766a1ee79cbb40f",
+        "android_client_info": {
+          "package_name": "com.communisolve.studentcircle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121350959646-0n4oi5r7584chcskcqaqdoat04noubn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfW4nnlvzEUcQBdxqUoqbC9M10OTFYn0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121350959646-0n4oi5r7584chcskcqaqdoat04noubn3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
