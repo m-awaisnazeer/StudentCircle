@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity">
+    tools:context=".SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:orientation="vertical"
+        android:layout_centerInParent="true"
         android:padding="15dp">
 
         <EditText
@@ -28,16 +28,14 @@
             android:inputType="textPassword" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="6dp"
+            android:layout_gravity="center_horizontal"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
-            android:text="Sign In"
+            android:text="Sign Up"
+            android:id="@+id/btn_sign_up"
             app:cornerRadius="15dp" />
     </LinearLayout>
-
-
 </RelativeLayout>

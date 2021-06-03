@@ -1,23 +1,23 @@
 package com.communisolve.studentcircle;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.communisolve.studentcircle.databinding.ActivitySignInBinding;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class SignInActivity extends AppCompatActivity {
+import com.communisolve.studentcircle.databinding.ActivitySignUpBinding;
 
-    private ActivitySignInBinding binding;
+public class SignUpActivity extends AppCompatActivity {
+    private ActivitySignUpBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySignInBinding.inflate(getLayoutInflater());
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnSignIn.setOnClickListener(new View.OnClickListener() {
+        binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
