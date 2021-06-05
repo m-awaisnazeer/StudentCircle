@@ -1,18 +1,16 @@
 package com.communisolve.studentcircle.ui.notifications;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.communisolve.studentcircle.R;
 import com.communisolve.studentcircle.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {
@@ -30,7 +28,21 @@ public class NotificationsFragment extends Fragment {
 
         binding.shimmerNotification.startShimmer();
 
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isAdded()) {
+                    showNotifications();
+                }
+            }
+        }, 1500);
         return root;
+    }
+
+    private void showNotifications() {
+        binding.shimmerNotification.stopShimmer();
+        binding.shimmerNotification.setVisibility(View.GONE);
     }
 
     @Override

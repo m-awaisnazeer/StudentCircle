@@ -6,9 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="@color/purple_500"
+        android:layout_height="wrap_content"
+        >
+        <EditText
+            android:layout_marginLeft="25dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="22sp"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:hint="Search User"/>
+    </androidx.appcompat.widget.Toolbar>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:id="@+id/search_user_recycler_view"
         tools:listitem="@layout/layout_user_item"/>
 

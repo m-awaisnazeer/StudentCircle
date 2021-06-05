@@ -1,18 +1,16 @@
 package com.communisolve.studentcircle.ui.home;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.communisolve.studentcircle.R;
 import com.communisolve.studentcircle.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -29,7 +27,22 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         binding.postsShimmar.startShimmer();
+
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (isAdded())
+                    showPosts();
+            }
+        }, 1500);
         return root;
+    }
+
+    private void showPosts() {
+        binding.postsShimmar.stopShimmer();
+        binding.postsShimmar.setVisibility(View.GONE);
     }
 
     @Override

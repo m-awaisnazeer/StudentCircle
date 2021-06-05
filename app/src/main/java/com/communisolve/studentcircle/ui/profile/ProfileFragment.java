@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.communisolve.studentcircle.R;
 import com.communisolve.studentcircle.databinding.ProfileFragmentBinding;
+import com.communisolve.studentcircle.utils.UserUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,6 +60,28 @@ public class ProfileFragment extends Fragment {
             }
         }, 1000);
 
+        binding.profileMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(getContext(), binding.profileMenu);
+                popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.logout) {
+                            mAuth.signOut();
+                            currentUser = null;
+                            UserUtils.removeTOken(mAuth.getUid());
+                            popupMenu.dismiss();
+                            Toast.makeText(getContext(), "Logout", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
         return binding.getRoot();
     }
 
