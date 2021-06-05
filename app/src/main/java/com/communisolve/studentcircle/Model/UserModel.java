@@ -3,6 +3,9 @@ package com.communisolve.studentcircle.Model;
 public class UserModel {
     String name, image, email, phone, uid, status, address;
 
+    public UserModel() {
+    }
+
     public UserModel(String name, String image, String email, String phone, String uid, String status, String address) {
         this.name = name;
         this.image = image;
