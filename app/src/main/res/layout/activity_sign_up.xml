@@ -38,4 +38,13 @@
             android:id="@+id/btn_sign_up"
             app:cornerRadius="15dp" />
     </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="70dp"
+        android:id="@+id/sign_up_progress_bar"
+        android:layout_height="70dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>

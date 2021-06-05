@@ -3,9 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".StartActivity">
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/selection_layout"
+        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -31,4 +35,24 @@
             android:text="Sign Up" />
 
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="25dp"
+        android:padding="4dp"
+        android:id="@+id/cv_progress_bar"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/progress_bar"
+                android:visibility="visible"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

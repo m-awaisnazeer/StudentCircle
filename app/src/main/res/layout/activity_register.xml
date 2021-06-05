@@ -1,9 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
     tools:context=".RegisterActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_centerInParent="true"
+           android:layout_height="match_parent">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_centerInParent="true"
+               android:layout_height="match_parent"
+               android:padding="15dp"
+               android:orientation="vertical">
+
+               <ImageView
+                   android:layout_width="150dp"
+                   android:layout_height="150dp"
+                   android:layout_gravity="center_horizontal"
+                   android:id="@+id/user_image"
+                   android:src="@drawable/ic_baseline_account_circle_24" />
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/name"
+                   android:hint="Full Name"
+                   android:inputType="textNoSuggestions"/>
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/email"
+                   android:hint="Email"
+                   android:inputType="textEmailAddress"/>
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/phone"
+                   android:hint="Phone"
+                   android:inputType="phone"/>
+
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/status"
+                   android:hint="Status"
+                   android:inputType="textNoSuggestions"/>
+
+               <EditText
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/city"
+                   android:hint="City"
+                   android:inputType="textNoSuggestions"/>
+
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/btn_continue"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_gravity="center_horizontal"
+                   android:paddingLeft="60dp"
+                   android:paddingRight="60dp"
+                   android:text="Continue"
+                   app:cornerRadius="25dp" />
+           </LinearLayout>
+       </ScrollView>
+   </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="4dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:cardCornerRadius="25dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -27,4 +27,9 @@
         android:name="com.communisolve.studentcircle.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.communisolve.studentcircle.ui.addPost.AddPostFragment"
+        android:label="@string/title_add"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>

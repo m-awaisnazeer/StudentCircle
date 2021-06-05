@@ -40,4 +40,11 @@
     </LinearLayout>
 
 
+    <ProgressBar
+        android:layout_width="70dp"
+        android:id="@+id/sign_in_progress_bar"
+        android:layout_height="70dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

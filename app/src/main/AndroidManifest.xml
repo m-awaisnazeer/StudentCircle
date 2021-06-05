@@ -10,11 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentCircle">
         <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+            android:label="Register User"/>
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />
-        <activity android:name=".StartActivity" >
+        <activity android:name=".StartActivity"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
