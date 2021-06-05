@@ -53,4 +53,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             super(itemView);
         }
     }
+
+    public void filterList(ArrayList<UserModel> filteredList) {
+        userModels = filteredList;
+        notifyDataSetChanged();
+    }
 }

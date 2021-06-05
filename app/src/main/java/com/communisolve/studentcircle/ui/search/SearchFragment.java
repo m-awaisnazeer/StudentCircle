@@ -1,6 +1,8 @@
 package com.communisolve.studentcircle.ui.search;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ public class SearchFragment extends Fragment {
 
     FirebaseAuth mAuth;
     private DatabaseReference UserRef;
+    UsersAdapter adapter;
     private ArrayList<UserModel> userModels;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -49,6 +52,7 @@ public class SearchFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference();
+        userModels = new ArrayList();
 
         binding.searchUserRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -59,12 +63,12 @@ public class SearchFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    userModels = new ArrayList();
+                    userModels.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         userModels.add(dataSnapshot.getValue(UserModel.class));
                     }
-
-                    binding.searchUserRecyclerView.setAdapter(new UsersAdapter(userModels, getContext()));
+                    adapter = new UsersAdapter(userModels, getContext());
+                    binding.searchUserRecyclerView.setAdapter(adapter);
                 }
             }
 
@@ -74,18 +78,47 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        binding.edtSearchUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
         return root;
+    }
+
+
+    private void filter(String text) {
+        ArrayList<UserModel> filteredList = new ArrayList<>();
+        for (UserModel item : userModels) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())
+                    || item.getEmail().toLowerCase().contains(text.toLowerCase())
+            ) {
+                filteredList.add(item);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
     @Override
     public void onPause() {
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         super.onPause();
     }
 

@@ -18,6 +18,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="22sp"
+            android:id="@+id/edt_search_user"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"
             android:hint="Search User"/>
