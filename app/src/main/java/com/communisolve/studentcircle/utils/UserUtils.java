@@ -8,10 +8,15 @@ import com.communisolve.studentcircle.Model.TokenModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 import static com.communisolve.studentcircle.utils.Constants.TOKENS_REF;
 
@@ -51,13 +56,11 @@ public class UserUtils {
                     public void onComplete(@NonNull @NotNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             DatabaseReference followingRef = FirebaseDatabase.getInstance().getReference();
-                            followRef.child(Constants.FOLLOWING_REF).child(currentUserUID)
+                            followingRef.child(Constants.FOLLOWING_REF).child(currentUserUID)
                                     .child(followUID).child("id").setValue(followUID);
                         }
                     }
                 });
-
-
     }
 
     public static void unFollowPerson(String currentUserUID, String followerUID) {
@@ -77,4 +80,6 @@ public class UserUtils {
                     }
                 });
     }
+
+
 }

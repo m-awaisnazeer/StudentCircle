@@ -15,6 +15,7 @@ import com.communisolve.studentcircle.Model.UserModel;
 import com.communisolve.studentcircle.adapter.PostsAdapter;
 import com.communisolve.studentcircle.callbacks.PostItemClickListener;
 import com.communisolve.studentcircle.databinding.ActivityViewUserProfileBinding;
+import com.communisolve.studentcircle.utils.UserUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,15 +27,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static com.communisolve.studentcircle.utils.Constants.FOLLOWER_REF;
+import static com.communisolve.studentcircle.utils.Constants.FOLLOWING_REF;
 import static com.communisolve.studentcircle.utils.Constants.POSTS_REF;
 import static com.communisolve.studentcircle.utils.Constants.USER_REF;
+import static com.communisolve.studentcircle.utils.Constants.currentSelectedUserUID;
 
 public class ViewUserProfileActivity extends AppCompatActivity {
     private ActivityViewUserProfileBinding binding;
 
     private DatabaseReference UserRef;
+    private DatabaseReference FollowRef;
     private DatabaseReference PostsRef;
-
+    private FirebaseAuth mAuth;
+    private Boolean isFollowingToThisUser = false;
 
     private ArrayList<PostModel> postModels;
     private PostsAdapter adapter;
@@ -54,15 +60,106 @@ public class ViewUserProfileActivity extends AppCompatActivity {
 
         UserRef = FirebaseDatabase.getInstance().getReference();
         PostsRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
-        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(FirebaseAuth.getInstance().getUid())){
-            binding.btnFollow.setVisibility(View.GONE);
-        }
+
         if (getIntent().hasExtra("userUID")) {
             getUserDetails(getIntent().getStringExtra("userUID"));
             showUserPosts(getIntent().getStringExtra("userUID"));
+
         }
 
+
+
+        if (currentSelectedUserUID != null && !currentSelectedUserUID.isEmpty()) {
+            getFollowersCount(currentSelectedUserUID);
+            getFollowingCount(currentSelectedUserUID);
+            TrackingFollowUnFlollow(currentSelectedUserUID, mAuth.getUid());
+
+            Toast.makeText(this, ""+currentSelectedUserUID, Toast.LENGTH_SHORT).show();
+
+            if (currentSelectedUserUID.equals(FirebaseAuth.getInstance().getUid())) {
+                binding.btnFollow.setVisibility(View.GONE);
+            }else {
+                binding.btnFollow.setVisibility(View.VISIBLE);
+            }
+        }
+
+        binding.btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.btnFollow.getText().toString().equals("Following")){
+                    binding.btnFollow.setText("Following");
+                    UserUtils.unFollowPerson(mAuth.getUid(),currentSelectedUserUID);
+                }else {
+                    binding.btnFollow.setText("Follow");
+                    UserUtils.followPerson(mAuth.getUid(),currentSelectedUserUID);
+                }
+            }
+        });
+
+    }
+
+    private void TrackingFollowUnFlollow(String currentSelectedUserUID, String currentUser) {
+        FollowRef = FirebaseDatabase.getInstance().getReference();
+        FollowRef.child(FOLLOWER_REF).child(currentSelectedUserUID).child(currentUser)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            binding.btnFollow.setText("Following");
+                            isFollowingToThisUser = true;
+                        } else {
+                            binding.btnFollow.setText("Follow");
+                            isFollowingToThisUser = false;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void getFollowingCount(String currentSelectedUserUID) {
+        FollowRef = FirebaseDatabase.getInstance().getReference();
+        FollowRef.child(FOLLOWING_REF).child(currentSelectedUserUID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            binding.txtFollowing.setText(String.valueOf(snapshot.getChildrenCount()));
+                        }else {
+                            binding.txtFollowing.setText(String.valueOf(0));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void getFollowersCount(String currentSelectedUserUID) {
+        FollowRef = FirebaseDatabase.getInstance().getReference();
+        FollowRef.child(FOLLOWER_REF).child(currentSelectedUserUID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            binding.txtFollowers.setText(String.valueOf(snapshot.getChildrenCount()));
+                        }else {
+                            binding.txtFollowers.setText(String.valueOf(0));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void getUserDetails(String userUID) {
@@ -112,7 +209,7 @@ public class ViewUserProfileActivity extends AppCompatActivity {
                                 Toast.makeText(ViewUserProfileActivity.this, "" + postModels.size(), Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), "No Posts Posted By User", Toast.LENGTH_SHORT).show();
-                                binding.postsShimmar.startShimmer();
+                                binding.postsShimmar.stopShimmer();
                                 binding.postsShimmar.setVisibility(View.GONE);
                                 binding.postsRecyclerView.setVisibility(View.VISIBLE);
                             }

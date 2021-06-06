@@ -20,6 +20,7 @@ import com.communisolve.studentcircle.Model.UserModel;
 import com.communisolve.studentcircle.adapter.UsersAdapter;
 import com.communisolve.studentcircle.databinding.FragmentSearchBinding;
 import com.communisolve.studentcircle.ui.viewUserProfile.ViewUserProfileActivity;
+import com.communisolve.studentcircle.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -112,7 +113,8 @@ public class SearchFragment extends Fragment implements UserItemClickListener {
                 filteredList.add(item);
             }
         }
-        adapter.filterList(filteredList);
+        if (adapter!=null)
+            adapter.filterList(filteredList);
     }
 
     @Override
@@ -136,6 +138,7 @@ public class SearchFragment extends Fragment implements UserItemClickListener {
 
     @Override
     public void onUserItemClick(UserModel userModel) {
+        Constants.currentSelectedUserUID = userModel.getUid();
         startActivity(new Intent(getContext(), ViewUserProfileActivity.class).putExtra("userUID", userModel.getUid()));
     }
 }
