@@ -33,6 +33,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static com.communisolve.studentcircle.utils.Constants.FOLLOWER_REF;
+import static com.communisolve.studentcircle.utils.Constants.FOLLOWING_REF;
 import static com.communisolve.studentcircle.utils.Constants.POSTS_REF;
 import static com.communisolve.studentcircle.utils.Constants.currentUser;
 
@@ -42,6 +44,8 @@ public class ProfileFragment extends Fragment implements PostItemClickListener {
     private ProfileFragmentBinding binding;
     FirebaseAuth mAuth;
     private DatabaseReference PostsRef;
+    private DatabaseReference FollowRef;
+
     private ArrayList<PostModel> postModels;
     private PostsAdapter adapter;
     PostItemClickListener postItemClickListener;
@@ -72,6 +76,8 @@ public class ProfileFragment extends Fragment implements PostItemClickListener {
             public void run() {
                 showUserProfile();
                 showUserPosts();
+                getFollowersCount(mAuth.getUid());
+                getFollowingCount(mAuth.getUid());
             }
         }, 1000);
 
@@ -130,6 +136,47 @@ public class ProfileFragment extends Fragment implements PostItemClickListener {
                     @Override
                     public void onCancelled(@NonNull @NotNull DatabaseError error) {
                         Toast.makeText(getContext(), "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    private void getFollowingCount(String currentSelectedUserUID) {
+        FollowRef = FirebaseDatabase.getInstance().getReference();
+        FollowRef.child(FOLLOWING_REF).child(currentSelectedUserUID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            binding.txtFollowing.setText(String.valueOf(snapshot.getChildrenCount()));
+                        }else {
+                            binding.txtFollowing.setText(String.valueOf(0));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+    private void getFollowersCount(String currentSelectedUserUID) {
+        FollowRef = FirebaseDatabase.getInstance().getReference();
+        FollowRef.child(FOLLOWER_REF).child(currentSelectedUserUID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            binding.txtFollowers.setText(String.valueOf(snapshot.getChildrenCount()));
+                        }else {
+                            binding.txtFollowers.setText(String.valueOf(0));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
                     }
                 });
     }

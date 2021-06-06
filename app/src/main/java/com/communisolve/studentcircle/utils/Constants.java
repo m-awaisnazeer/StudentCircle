@@ -13,4 +13,49 @@ public class Constants {
 
     public static UserModel currentUser;
     public static String currentSelectedUserUID;
+
+//
+//    fun showNotification(
+//            context: Context, id: Int, title: String?, body: String?,
+//            intent: Intent?
+//    ) {
+//        val notificationManager =
+//                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            createNotificationChannel(notificationManager)
+//        }
+//        val pendingIntent = PendingIntent.getActivity(
+//                context,
+//                0,
+//                intent,
+//                PendingIntent.FLAG_ONE_SHOT
+//        )
+//
+//        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+//                .setContentTitle(title)
+//                .setContentText(body)
+//                .setSmallIcon(R.drawable.ic_point_logo)
+//                .setAutoCancel(true)
+//                .setContentIntent(pendingIntent)
+//                .build()
+//
+//        notificationManager.notify(id, notification)
+//    }
+//
+//    @SuppressLint("NewApi")
+//    private fun createNotificationChannel(notificationManager: NotificationManager) {
+//        val channelName = "point_marketplace_app"
+//        val channel = NotificationChannel(
+//                CHANNEL_ID,
+//                channelName,
+//                NotificationManager.IMPORTANCE_HIGH
+//        ).apply {
+//            description = "Point Market Place App"
+//            enableLights(true)
+//            lightColor = Color.GREEN
+//        }
+//        notificationManager.createNotificationChannel(channel)
+//
+//    }
+
 }

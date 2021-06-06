@@ -93,6 +93,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:id="@+id/txt_followers"
                         android:text="0"
                         android:textColor="@color/black" />
 
@@ -101,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="0"
+                        android:id="@+id/txt_following"
                         android:textColor="@color/black" />
                 </LinearLayout>
 

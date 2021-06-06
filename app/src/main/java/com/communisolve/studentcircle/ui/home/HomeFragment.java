@@ -98,7 +98,6 @@ public class HomeFragment extends Fragment {
                                     postModels.add(postModel);
                                 }
                             }
-                            Toast.makeText(getContext(), "Posts Found" + postModels.size(), Toast.LENGTH_SHORT).show();
                             if (postModels.size() > 0) {
                                 binding.postsShimmar.stopShimmer();
                                 binding.postsShimmar.setVisibility(View.GONE);
@@ -137,7 +136,6 @@ public class HomeFragment extends Fragment {
                             for (DataSnapshot childSnapShot : snapshot.getChildren()) {
                                 currentUserFollowingList.add(childSnapShot.child("id").getValue(String.class));
                             }
-                            Toast.makeText(getContext(), "Following: " + currentUserFollowingList.size(), Toast.LENGTH_SHORT).show();
                         }
                     }
 

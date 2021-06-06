@@ -76,8 +76,6 @@ public class ViewUserProfileActivity extends AppCompatActivity {
             getFollowingCount(currentSelectedUserUID);
             TrackingFollowUnFlollow(currentSelectedUserUID, mAuth.getUid());
 
-            Toast.makeText(this, ""+currentSelectedUserUID, Toast.LENGTH_SHORT).show();
-
             if (currentSelectedUserUID.equals(FirebaseAuth.getInstance().getUid())) {
                 binding.btnFollow.setVisibility(View.GONE);
             }else {
