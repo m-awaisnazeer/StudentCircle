@@ -135,5 +135,7 @@ public class AddPostFragment extends Fragment {
     private void clearData() {
         binding.postImg.setImageResource(R.drawable.ic_baseline_image_24);
         binding.edtPost.setText("");
+        imageSelected = false;
+        selectedImageUri = null;
     }
 }
