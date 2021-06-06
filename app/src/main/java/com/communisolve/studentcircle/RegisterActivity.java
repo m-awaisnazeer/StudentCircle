@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                     binding.cvProgressBar.setVisibility(View.GONE);
                     return;
                 } else {
-                    UploadStudentImage(mAuth.getUid(), selectedImageUri);
+                    UploadUserImage(mAuth.getUid(), selectedImageUri);
                 }
             }
         });
@@ -102,8 +102,8 @@ public class RegisterActivity extends AppCompatActivity {
         startActivityForResult(galleryIntent, Image_Request_Code);
     }
 
-    private void UploadStudentImage(String UID, Uri selectedImageUri) {
-        StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("Student_Images").child(UID);
+    private void UploadUserImage(String UID, Uri selectedImageUri) {
+        StorageReference ImageFolder = FirebaseStorage.getInstance().getReference().child("Users_Images").child(UID);
         final StorageReference ImageName = ImageFolder.child("Image" + selectedImageUri.getLastPathSegment());
 
         ImageName.putFile(selectedImageUri).addOnSuccessListener(taskSnapshot ->

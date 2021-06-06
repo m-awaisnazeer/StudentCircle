@@ -1,5 +1,6 @@
 package com.communisolve.studentcircle.ui.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.communisolve.studentcircle.Model.UserModel;
 import com.communisolve.studentcircle.adapter.UsersAdapter;
 import com.communisolve.studentcircle.databinding.FragmentSearchBinding;
+import com.communisolve.studentcircle.ui.viewUserProfile.ViewUserProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 import static com.communisolve.studentcircle.utils.Constants.USER_REF;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements UserItemClickListener {
 
     private SearchViewModel searchViewModel;
     private FragmentSearchBinding binding;
@@ -42,6 +44,8 @@ public class SearchFragment extends Fragment {
     UsersAdapter adapter;
     private ArrayList<UserModel> userModels;
 
+    UserItemClickListener userItemClickListener;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         searchViewModel =
@@ -50,6 +54,7 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        userItemClickListener = this;
         mAuth = FirebaseAuth.getInstance();
         UserRef = FirebaseDatabase.getInstance().getReference();
         userModels = new ArrayList();
@@ -67,7 +72,7 @@ public class SearchFragment extends Fragment {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         userModels.add(dataSnapshot.getValue(UserModel.class));
                     }
-                    adapter = new UsersAdapter(userModels, getContext());
+                    adapter = new UsersAdapter(userModels, getContext(), userItemClickListener);
                     binding.searchUserRecyclerView.setAdapter(adapter);
                 }
             }
@@ -126,5 +131,11 @@ public class SearchFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    @Override
+    public void onUserItemClick(UserModel userModel) {
+        startActivity(new Intent(getContext(), ViewUserProfileActivity.class).putExtra("userUID", userModel.getUid()));
     }
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.communisolve.studentcircle.Model.UserModel;
 import com.communisolve.studentcircle.databinding.LayoutUserItemBinding;
+import com.communisolve.studentcircle.ui.search.UserItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,10 +22,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     private ArrayList<UserModel> userModels;
     private Context context;
+    UserItemClickListener userItemClickListener;
 
-    public UsersAdapter(ArrayList<UserModel> userModels, Context context) {
+    public UsersAdapter(ArrayList<UserModel> userModels, Context context, UserItemClickListener userItemClickListener) {
         this.userModels = userModels;
         this.context = context;
+        this.userItemClickListener = userItemClickListener;
     }
 
     @NonNull
@@ -41,6 +44,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         Glide.with(context).load(userModel.getImage()).into(binding.userProfileImage);
         binding.username.setText(userModel.getName());
         binding.email.setText(userModel.getEmail());
+
+        binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userItemClickListener.onUserItemClick(userModel);
+            }
+        });
     }
 
     @Override
