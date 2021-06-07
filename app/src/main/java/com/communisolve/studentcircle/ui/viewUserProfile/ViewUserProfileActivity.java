@@ -194,6 +194,7 @@ public class ViewUserProfileActivity extends AppCompatActivity {
                             postModels = new ArrayList<>();
                             for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                 PostModel postModel = childSnapshot.getValue(PostModel.class);
+                                postModel.setPostUID(childSnapshot.getKey());
                                 if (postModel.getPostByUID().equals(userUID)) {
                                     postModels.add(postModel);
                                 }

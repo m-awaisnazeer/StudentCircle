@@ -116,6 +116,7 @@ public class ProfileFragment extends Fragment implements PostItemClickListener {
                             postModels = new ArrayList<>();
                             for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                 PostModel postModel = childSnapshot.getValue(PostModel.class);
+                                postModel.setPostUID(childSnapshot.getKey());
                                 if (postModel.getPostByUID().equals(mAuth.getUid())) {
                                     postModels.add(postModel);
                                 }

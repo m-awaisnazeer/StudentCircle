@@ -2,7 +2,7 @@ package com.communisolve.studentcircle.Model;
 
 public class PostModel {
 
-    String postByUID,imgURL,postText;
+    String postByUID,imgURL,postText,PostUID;
     Long timeStamp;
 
     public PostModel() {
@@ -45,5 +45,13 @@ public class PostModel {
 
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getPostUID() {
+        return PostUID;
+    }
+
+    public void setPostUID(String postUID) {
+        PostUID = postUID;
     }
 }

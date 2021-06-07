@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
         binding.postsRecyclerView.setHasFixedSize(false);
         linearLayoutManager = new LinearLayoutManager(getContext());
         binding.postsRecyclerView.setLayoutManager(linearLayoutManager);
-        if (isAdded() && getContext()!=null)
+        if (isAdded() && getContext() != null)
             binding.postsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), linearLayoutManager.getOrientation()));
 
         final Handler handler = new Handler(Looper.getMainLooper());
@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
                             postModels = new ArrayList<>();
                             for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                                 PostModel postModel = childSnapshot.getValue(PostModel.class);
+                                postModel.setPostUID(childSnapshot.getKey());
                                 if (currentUserFollowingList.contains(postModel.getPostByUID())) {
                                     postModels.add(postModel);
                                 }

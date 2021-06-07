@@ -10,6 +10,9 @@ public class Constants {
     public static final String TOKENS_REF = "tokens";
     public static final String FOLLOWER_REF = "followers";
     public static final String FOLLOWING_REF = "following";
+    public static final String LIKES_REF = "likes";
+    public static final String COMMENTS_REF = "comments";
+
 
     public static UserModel currentUser;
     public static String currentSelectedUserUID;
