@@ -1,4 +1,4 @@
-package com.communisolve.studentcircle.ui.notifications;
+package com.communisolve.studentcircle.ui.chat;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,15 +13,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.communisolve.studentcircle.databinding.FragmentNotificationsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class ChatsFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private ChatsViewModel chatsViewModel;
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        chatsViewModel =
+                new ViewModelProvider(this).get(ChatsViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();

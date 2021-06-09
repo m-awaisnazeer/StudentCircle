@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentCircle">
-        <activity android:name=".ui.viewUserProfile.ViewUserProfileActivity"></activity>
+        <activity android:name=".ui.viewPost.ViewPostActivity"></activity>
+        <activity android:name=".ui.viewUserProfile.ViewUserProfileActivity" />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".RegisterActivity"
@@ -27,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignInActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <service android:name=".service.FCMService">
             <intent-filter>

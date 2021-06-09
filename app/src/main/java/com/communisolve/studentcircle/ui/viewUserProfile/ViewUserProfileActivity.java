@@ -1,5 +1,6 @@
 package com.communisolve.studentcircle.ui.viewUserProfile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.communisolve.studentcircle.Model.UserModel;
 import com.communisolve.studentcircle.adapter.PostsAdapter;
 import com.communisolve.studentcircle.callbacks.PostItemClickListener;
 import com.communisolve.studentcircle.databinding.ActivityViewUserProfileBinding;
+import com.communisolve.studentcircle.ui.viewPost.ViewPostActivity;
 import com.communisolve.studentcircle.utils.UserUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +35,7 @@ import static com.communisolve.studentcircle.utils.Constants.POSTS_REF;
 import static com.communisolve.studentcircle.utils.Constants.USER_REF;
 import static com.communisolve.studentcircle.utils.Constants.currentSelectedUserUID;
 
-public class ViewUserProfileActivity extends AppCompatActivity {
+public class ViewUserProfileActivity extends AppCompatActivity implements PostItemClickListener {
     private ActivityViewUserProfileBinding binding;
 
     private DatabaseReference UserRef;
@@ -61,6 +63,7 @@ public class ViewUserProfileActivity extends AppCompatActivity {
         UserRef = FirebaseDatabase.getInstance().getReference();
         PostsRef = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+        postItemClickListener = this;
 
 
         if (getIntent().hasExtra("userUID")) {
@@ -235,4 +238,8 @@ public class ViewUserProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onPostItemCLick(PostModel postModel, boolean isCommentedOnPost) {
+        startActivity(new Intent(getApplicationContext(), ViewPostActivity.class).putExtra("postId",postModel.getPostUID()));
+    }
 }

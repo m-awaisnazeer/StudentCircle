@@ -1,5 +1,6 @@
 package com.communisolve.studentcircle.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import com.communisolve.studentcircle.R;
 import com.communisolve.studentcircle.adapter.PostsAdapter;
 import com.communisolve.studentcircle.callbacks.PostItemClickListener;
 import com.communisolve.studentcircle.databinding.ProfileFragmentBinding;
+import com.communisolve.studentcircle.ui.viewPost.ViewPostActivity;
 import com.communisolve.studentcircle.utils.UserUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -187,14 +189,15 @@ public class ProfileFragment extends Fragment implements PostItemClickListener {
         binding.shimmarProfileLayout.setVisibility(View.GONE);
         binding.viewLayout.setVisibility(View.VISIBLE);
 
-        if (currentUser != null) {
+        if (currentUser != null && isAdded()) {
             Glide.with(this).load(currentUser.getImage()).into(binding.imgProfile);
             binding.txtFullName.setText(currentUser.getName());
         }
     }
 
-    @Override
-    public void onPostItemCLick(PostModel postModel) {
 
+    @Override
+    public void onPostItemCLick(PostModel postModel, boolean isCommentedOnPost) {
+        startActivity(new Intent(getContext(), ViewPostActivity.class).putExtra("postId",postModel.getPostUID()));
     }
 }

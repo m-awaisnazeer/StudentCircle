@@ -1,5 +1,6 @@
 package com.communisolve.studentcircle.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +19,7 @@ import com.communisolve.studentcircle.Model.PostModel;
 import com.communisolve.studentcircle.adapter.PostsAdapter;
 import com.communisolve.studentcircle.callbacks.PostItemClickListener;
 import com.communisolve.studentcircle.databinding.FragmentHomeBinding;
+import com.communisolve.studentcircle.ui.viewPost.ViewPostActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 import static com.communisolve.studentcircle.utils.Constants.FOLLOWING_REF;
 import static com.communisolve.studentcircle.utils.Constants.POSTS_REF;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements PostItemClickListener {
 
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
@@ -55,7 +57,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         mAuth = FirebaseAuth.getInstance();
         PostsRef = FirebaseDatabase.getInstance().getReference();
-
+        postItemClickListener = this;
         binding.postsShimmar.startShimmer();
         getCurrentUserFollowingList(mAuth.getUid());
         binding.postsRecyclerView.setHasFixedSize(false);
@@ -145,5 +147,12 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void onPostItemCLick(PostModel postModel, boolean isCommentedOnPost) {
+        if (isCommentedOnPost){
+            startActivity(new Intent(getContext(), ViewPostActivity.class).putExtra("postId",postModel.getPostUID()));
+        }
     }
 }

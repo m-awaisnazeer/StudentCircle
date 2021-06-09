@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,12 +80,21 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                             .child(LIKES_REF).child(currentPost.getPostUID())
                             .child(mAuth.getUid())
                             .setValue(null);
+                    Toast.makeText(context, "unlike", Toast.LENGTH_SHORT).show();
                 } else {
+                    Toast.makeText(context, "like", Toast.LENGTH_SHORT).show();
                     FirebaseDatabase.getInstance().getReference()
                             .child(LIKES_REF).child(currentPost.getPostUID())
                             .child(mAuth.getUid())
                             .child("id").setValue(mAuth.getUid());
                 }
+            }
+        });
+
+        holder.comment_on_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postItemClickListener.onPostItemCLick(currentPost,true);
             }
         });
     }
